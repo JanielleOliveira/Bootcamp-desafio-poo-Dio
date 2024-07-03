@@ -20,9 +20,17 @@ public class Main {
         mentoria.setDescricao("descrição mentoria java");
         mentoria.setData(LocalDate.now());
 
+        Desafio desafio1 = new Desafio();
+        desafio1.setTitulo("1º Desafio de Código Java Poo");
+        desafio1.setDescricao("Abstraindo um Bootcamp Usando Orientação a Objetos em Java");
+        desafio1.setRequisitos("\n✅ Conhecer a sintaxe da Java\n" + "✅ Java JDK 11\n" + "✅ IDE para desenvolvimento Java (usarei IntelliJ)\n" + "✅ Git\n" + "✅ Conta no GitHub");
+        desafio1.setNivelDificuldade("Intermediário");
+        desafio1.setData(LocalDate.now());
+
         /*System.out.println(curso1);
         System.out.println(curso2);
-        System.out.println(mentoria);*/
+        System.out.println(mentoria);
+        System.out.println(desafio);*/
 
         Bootcamp bootcamp = new Bootcamp();
         bootcamp.setNome("Bootcamp Java Developer");
@@ -30,6 +38,8 @@ public class Main {
         bootcamp.getConteudos().add(curso1);
         bootcamp.getConteudos().add(curso2);
         bootcamp.getConteudos().add(mentoria);
+        bootcamp.getConteudos().add(desafio1);
+
 
         Dev devCamila = new Dev();
         devCamila.setNome("CAMILA");
@@ -37,10 +47,13 @@ public class Main {
         System.out.println("Conteúdos Inscritos Camila: " + devCamila.getConteudosInscritos());
         devCamila.progredir();
         devCamila.progredir();
+        devCamila.progredir();
         System.out.println("-");
         System.out.println("Conteúdos Inscritos Camila: " + devCamila.getConteudosInscritos());
         System.out.println("Conteúdos Concluídos Camila: " + devCamila.getConteudosConcluidos());
+        System.out.println("-");
         System.out.println("Certificados obtidos por Camila: " + devCamila.listarCertificados());
+        System.out.println("-");
         System.out.println("XP:" + devCamila.calcularTotalXp());
 
         System.out.println("------------------------------------");
@@ -52,18 +65,17 @@ public class Main {
         devJoao.progredir();
         devJoao.progredir();
         devJoao.progredir();
+        devJoao.progredir();
         System.out.println("-");
         System.out.println("Conteúdos Inscritos João :" + devJoao.getConteudosInscritos());
         System.out.println("Conteúdos Concluidos João :" + devJoao.getConteudosConcluidos());
+        System.out.println("-");
         System.out.println("Certificados obtidos por João: " + devJoao.listarCertificados());
+        System.out.println("-");
         System.out.println("XP:" + devJoao.calcularTotalXp());
 
 
-
     }
-
-
-
 
 
 }

@@ -52,9 +52,9 @@ public class Certificado extends Dev {
     @Override
     public String toString() {
         return "Certificado{" +
-                "Certificamos que '" + nomeDev + '\''+
+                "Certificamos que '" + nomeDev + '\'' +
                 ", concluiu o curso '" + tituloCurso + '\'' +
-                ", com  carga horária de " + cargaHoraria + " horas"+
+                ", com  carga horária de " + cargaHoraria + " horas" +
                 ", em " + dataConclusao +
                 '}';
     }

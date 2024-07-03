@@ -27,12 +27,13 @@ public class Curso extends Conteudo {
 
     @Override
     public String toString() {
-        return "Curso{" +
+        return "\nCurso {" +
                 "titulo='" + getTitulo() + '\'' +
                 ", descricao='" + getDescricao() + '\'' +
                 '}';
     }
-    public Certificado concluirCurso(Dev dev){
+
+    public Certificado concluirCurso(Dev dev) {
         Certificado certificado = new Certificado(dev.getNome(), this.getTitulo(), this.getCargaHoraria(), LocalDate.now());
         dev.adicionarCertificado(certificado);
         return certificado;

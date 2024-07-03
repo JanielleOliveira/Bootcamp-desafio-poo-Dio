@@ -6,7 +6,7 @@ public class Dev {
     private String nome;
     private Set<Conteudo> conteudosInscritos = new LinkedHashSet<>();
     private Set<Conteudo> conteudosConcluidos = new LinkedHashSet<>();
-    private List<Certificado> certificados = new ArrayList<>();
+    private final List<Certificado> certificados = new ArrayList<>();
 
     public void inscreverBootcamp(Bootcamp bootcamp) {
         this.conteudosInscritos.addAll(bootcamp.getConteudos());
@@ -34,18 +34,18 @@ public class Dev {
     }
 
     public double calcularTotalXp() {
-        Iterator<Conteudo> iterator = this.conteudosConcluidos.iterator();
+        /*Iterator<Conteudo> iterator = this.conteudosConcluidos.iterator();
         double soma = 0;
         while (iterator.hasNext()) {
             double next = iterator.next().calcularXp();
             soma += next;
         }
-        return soma;
-
-        /*return this.conteudosConcluidos
+        return soma;*/
+        return this.conteudosConcluidos
                 .stream()
                 .mapToDouble(Conteudo::calcularXp)
-                .sum();*/
+                .sum();
+
     }
 
     private boolean temCertificado(Curso curso) {
@@ -61,24 +61,19 @@ public class Dev {
         this.certificados.add(certificado);
     }
 
-    public List<Certificado> getCertificados() {
-        return certificados;
-    }
-
 
     public String listarCertificados() {
         StringBuilder sb = new StringBuilder();
         Set<String> certificadosRegistrados = new HashSet<>(); // Conjunto para garantir certificados únicos
         for (Certificado certificado : certificados) {
             if (!certificadosRegistrados.contains(certificado.toString())) {
-                sb.append(certificado.toString()).append("\n");
+                sb.append(certificado).append("\n");
                 certificadosRegistrados.add(certificado.toString());
             }
 
         }
         return sb.toString();
     }
-
 
     public String getNome() {
         return nome;
