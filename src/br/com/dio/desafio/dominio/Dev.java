@@ -6,17 +6,28 @@ public class Dev {
     private String nome;
     private Set<Conteudo> conteudosInscritos = new LinkedHashSet<>();
     private Set<Conteudo> conteudosConcluidos = new LinkedHashSet<>();
+    private List<Certificado> certificados = new ArrayList<>();
 
-    public void inscreverBootcamp(Bootcamp bootcamp){
+    public void inscreverBootcamp(Bootcamp bootcamp) {
         this.conteudosInscritos.addAll(bootcamp.getConteudos());
         bootcamp.getDevsInscritos().add(this);
     }
 
     public void progredir() {
         Optional<Conteudo> conteudo = this.conteudosInscritos.stream().findFirst();
-        if(conteudo.isPresent()) {
+        if (conteudo.isPresent()) {
             this.conteudosConcluidos.add(conteudo.get());
             this.conteudosInscritos.remove(conteudo.get());
+
+            // Ao concluir um conteúdo, verifica se é um curso e gera o certificado se ainda não existir
+            if (conteudo.get() instanceof Curso) {
+                Curso cursoConcluido = (Curso) conteudo.get();
+                Certificado certificado = cursoConcluido.concluirCurso(this);
+                if (!temCertificado(cursoConcluido)) {
+                    this.adicionarCertificado(certificado);
+                }
+            }
+
         } else {
             System.err.println("Você não está matriculado em nenhum conteúdo!");
         }
@@ -25,7 +36,7 @@ public class Dev {
     public double calcularTotalXp() {
         Iterator<Conteudo> iterator = this.conteudosConcluidos.iterator();
         double soma = 0;
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             double next = iterator.next().calcularXp();
             soma += next;
         }
@@ -35,6 +46,37 @@ public class Dev {
                 .stream()
                 .mapToDouble(Conteudo::calcularXp)
                 .sum();*/
+    }
+
+    private boolean temCertificado(Curso curso) {
+        for (Certificado certificado : certificados) {
+            if (certificado.getTituloCurso().equals(curso.getTitulo())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void adicionarCertificado(Certificado certificado) {
+        this.certificados.add(certificado);
+    }
+
+    public List<Certificado> getCertificados() {
+        return certificados;
+    }
+
+
+    public String listarCertificados() {
+        StringBuilder sb = new StringBuilder();
+        Set<String> certificadosRegistrados = new HashSet<>(); // Conjunto para garantir certificados únicos
+        for (Certificado certificado : certificados) {
+            if (!certificadosRegistrados.contains(certificado.toString())) {
+                sb.append(certificado.toString()).append("\n");
+                certificadosRegistrados.add(certificado.toString());
+            }
+
+        }
+        return sb.toString();
     }
 
 
@@ -73,5 +115,13 @@ public class Dev {
     @Override
     public int hashCode() {
         return Objects.hash(nome, conteudosInscritos, conteudosConcluidos);
+    }
+
+    @Override
+    public String toString() {
+        return "Dev{" +
+                "nome='" + nome + '\'' +
+                ", certificados=" + certificados +
+                '}';
     }
 }
